@@ -67,6 +67,7 @@
 #define MICROPY_PY_BLUETOOTH_IRQ_STACK_SIZE (CONFIG_BT_NIMBLE_TASK_STACK_SIZE)
 #define MICROPY_PY_BLUETOOTH_ENABLE_CENTRAL_MODE (1)
 #define MICROPY_PY_BLUETOOTH_ENABLE_PAIRING_BONDING (1)
+#define MICROPY_PY_BLUETOOTH_ENABLE_L2CAP_CHANNELS (1)
 #define MICROPY_BLUETOOTH_NIMBLE            (1)
 #define MICROPY_BLUETOOTH_NIMBLE_BINDINGS_ONLY (1)
 #endif
@@ -250,6 +251,12 @@ typedef long mp_off_t;
 
 #ifndef MICROPY_BOARD_STARTUP
 #define MICROPY_BOARD_STARTUP boardctrl_startup
+#endif
+
+#if MICROPY_PY_BLUETOOTH_USE_SYNC_EVENTS
+// Bluetooth code only runs in the scheduler, no locking/mutex required.
+#define MICROPY_PY_BLUETOOTH_ENTER uint32_t atomic_state = 0;
+#define MICROPY_PY_BLUETOOTH_EXIT (void)atomic_state;
 #endif
 
 void boardctrl_startup(void);

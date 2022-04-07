@@ -1761,6 +1761,7 @@ int mp_bluetooth_l2cap_send(uint16_t conn_handle, uint16_t cid, const uint8_t *b
 }
 
 int mp_bluetooth_l2cap_recvinto(uint16_t conn_handle, uint16_t cid, uint8_t *buf, size_t *len) {
+    DEBUG_printf("mp_bluetooth_l2cap_recvinto: conn_handle=%d, cid=%d, len=%d\n", conn_handle, cid, (int)len);
     mp_bluetooth_nimble_l2cap_channel_t *chan = get_l2cap_channel_for_conn_cid(conn_handle, cid);
     if (!chan) {
         return MP_EINVAL;
