@@ -11,7 +11,7 @@ if not hasattr(bluetooth.BLE, "l2cap_connect"):
     print("SKIP")
     raise SystemExit
 
-TIMEOUT_MS = 1000
+TIMEOUT_MS = 2000
 
 _IRQ_CENTRAL_CONNECT = const(1)
 _IRQ_CENTRAL_DISCONNECT = const(2)
